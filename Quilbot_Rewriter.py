@@ -57,36 +57,62 @@ class My_App(tk.Frame):
         driver = webdriver.Chrome(str(pathlib.Path(__file__).parent.absolute()) + '\\chromedriver.exe',options=options)
         url="https://quillbot.com/"
         driver.get(url)
-        
-        for v in range(0, len(sListInput)):
 
-            if (sListInput[v] != ""):
+        try:
+            elelogins = driver.find_elements_by_class_name('MuiButton-label')
+            for i in range(0, len(elelogins)):
+                if (elelogins[i].text == "Log In"):
+                    elelogins[i].click()
+                    break
 
-                if(len(driver.find_elements_by_class_name('MuiDialog-paper')) > 0):
-                    driver.find_element_by_class_name('MuiDialog-paper').send_keys(Keys.ESCAPE)
+            time.sleep(2)
 
-                eleInputbox = driver.find_element_by_id('inputText')
-                eleInputbox.clear()
-                eleInputbox.send_keys(sListInput[v])
+            eleInputs = driver.find_elements_by_class_name('MuiFilledInput-input')
+            eleInputs[0].send_keys('fadeevdoma@gmail.com')
+            eleInputs[1].send_keys('quillbotpass')
 
-                eleSliders = driver.find_elements_by_class_name('MuiSlider-thumbColorPrimary')
+            driver.find_element_by_class_name('auth-btn').click()
 
-                for i in range(0, len(eleSliders)):
-                    try:
-                        eleSliders[i].send_keys(Keys.ARROW_RIGHT)
-                        eleSliders[i].send_keys(Keys.ARROW_RIGHT)
-                        eleSliders[i].send_keys(Keys.ARROW_RIGHT)
-                    except:
-                        pass
+            time.sleep(2)
 
-                time.sleep(1)
-                WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0'))).click()
-                time.sleep(1)
+            eleSliders = driver.find_elements_by_class_name('MuiSlider-thumbColorPrimary')
 
-                WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0')))
+            for i in range(0, len(eleSliders)):
+                try:
+                    eleSliders[i].send_keys(Keys.ARROW_RIGHT)
+                    eleSliders[i].send_keys(Keys.ARROW_RIGHT)
+                    eleSliders[i].send_keys(Keys.ARROW_RIGHT)
+                except:
+                    pass
 
-                sOutput = driver.find_element_by_id('articleTextArea').text
-                sListOutput[v] = sOutput
+            for v in range(0, len(sListInput)):
+
+                if (sListInput[v] != ""):
+
+                    if(len(driver.find_elements_by_class_name('MuiDialog-paper')) > 0):
+                        elebuttons = driver.find_elements_by_class_name('MuiIconButton-root')
+                        for i in range(0, len(elebuttons)):
+                            try:
+                                elebuttons[i].click()
+                                break
+                            except:
+                                pass                   
+
+                    eleInputbox = driver.find_element_by_id('inputText')
+                    eleInputbox.clear()
+                    eleInputbox.send_keys(sListInput[v])                
+
+                    time.sleep(1)
+                    WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0'))).click()
+                    time.sleep(1)
+
+                    WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0')))
+
+                    sOutput = driver.find_element_by_id('articleTextArea').text
+                    sListOutput[v] = sOutput
+
+        except Exception as e:
+            messagebox.showwarning("Warning", str(e))
             
         self.txtOutput.delete('1.0', 'end-1c')
         self.txtOutput.insert('1.0', '\n'.join(sListOutput))
