@@ -59,21 +59,21 @@ class My_App(tk.Frame):
         driver.get(url)
 
         try:
-            elelogins = driver.find_elements_by_class_name('MuiButton-label')
-            for i in range(0, len(elelogins)):
-                if (elelogins[i].text == "Log In"):
-                    elelogins[i].click()
-                    break
+            # elelogins = driver.find_elements_by_class_name('MuiButton-label')
+            # for i in range(0, len(elelogins)):
+            #     if (elelogins[i].text == "Log In"):
+            #         elelogins[i].click()
+            #         break
 
-            time.sleep(2)
+            # time.sleep(2)
 
-            eleInputs = driver.find_elements_by_class_name('MuiFilledInput-input')
-            eleInputs[0].send_keys('fadeevdoma@gmail.com')
-            eleInputs[1].send_keys('quillbotpass')
+            # eleInputs = driver.find_elements_by_class_name('MuiFilledInput-input')
+            # eleInputs[0].send_keys('fadeevdoma@gmail.com')
+            # eleInputs[1].send_keys('quillbotpass')
 
-            driver.find_element_by_class_name('auth-btn').click()
+            # driver.find_element_by_class_name('auth-btn').click()
 
-            time.sleep(2)
+            # time.sleep(2)
 
             eleSliders = driver.find_elements_by_class_name('MuiSlider-thumbColorPrimary')
 
@@ -96,17 +96,19 @@ class My_App(tk.Frame):
                                 elebuttons[i].click()
                                 break
                             except:
-                                pass                   
+                                pass     
+
+                    WebDriverWait(driver, 600).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0')))              
 
                     eleInputbox = driver.find_element_by_id('inputText')
                     eleInputbox.clear()
                     eleInputbox.send_keys(sListInput[v])                
 
                     time.sleep(1)
-                    WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0'))).click()
+                    WebDriverWait(driver, 600).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0'))).click()
                     time.sleep(1)
 
-                    WebDriverWait(driver, 200).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0')))
+                    WebDriverWait(driver, 600).until(ec.element_to_be_clickable((By.CLASS_NAME, 'QuillButton-sc-12j9igu-0')))
 
                     sOutput = driver.find_element_by_id('articleTextArea').text
                     sListOutput[v] = sOutput
