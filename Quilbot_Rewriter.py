@@ -30,22 +30,7 @@ class My_App(tk.Frame):
 
         self.driver = webdriver.Chrome(str(pathlib.Path(__file__).parent.absolute()) + '\\chromedriver.exe',options=options)
         url="https://quillbot.com/"
-        self.driver.get(url)
-        elelogins = self.driver.find_elements_by_class_name('MuiButton-label')
-        for i in range(0, len(elelogins)):
-            if (elelogins[i].text == "Log In"):
-                elelogins[i].click()
-                break
-
-        time.sleep(2)
-
-        eleInputs = self.driver.find_elements_by_class_name('MuiFilledInput-input')
-        eleInputs[0].send_keys('fadeevdoma@gmail.com')
-        eleInputs[1].send_keys('quillbotpass')
-        time.sleep(0.5)
-
-        self.driver.find_element_by_class_name('auth-btn').click()    
-        time.sleep(3)   
+        self.driver.get(url)       
 
         if(len(self.driver.find_elements_by_class_name('MuiDialog-paper')) > 0):
             elebuttons = self.driver.find_elements_by_class_name('MuiIconButton-root')
